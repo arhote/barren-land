@@ -3,10 +3,7 @@ package com.company;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -33,8 +30,18 @@ public class Main {
             }
         }
 
+        printAreas(out, plotSizes);
 
+    }
 
+    public static void printAreas(PrintStream out, ArrayList<Integer> plotSizes){
+        Integer[] plots = (Integer[]) plotSizes.toArray();
+
+        Arrays.sort(plots);
+
+        for(int i : plots){
+            out.print(i + " ");
+        }
     }
 
     public static int getFertileArea(Plot[][] farm, Coordinate startPoint){
