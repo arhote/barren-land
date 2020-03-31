@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
@@ -12,12 +14,6 @@ public class Main {
     public static final int YMIN = 0;
     public static final int XMAX = 400;
     public static final int YMAX = 600;
-    public static final boolean DEBUG = true;
-    public static boolean FILENOTFOUND = false;
-    public static final boolean GENERATETEST = true;
-
-
-
 
 
     public static void main(String[] args) {
@@ -27,9 +23,45 @@ public class Main {
         PrintStream out = System.out;
 
         farm = prepFarm(getPlots(in, out));
+        ArrayList<Integer> plotSizes = new ArrayList<>();
+
+        for(int i = XMIN; i < XMAX; i++){
+            for(int j = YMIN; j < YMAX; j++){
+                if(!farm[i][j].visited && farm[i][j].isFertile){
+                    plotSizes.add(getFertileArea(farm, new Coordinate(i,j)));
+                }
+            }
+        }
 
 
 
+    }
+
+    public static int getFertileArea(Plot[][] farm, Coordinate startPoint){
+        int area = 0;
+        Queue<Coordinate> queue = new LinkedList<>();
+        queue.add(startPoint);
+
+        while(!queue.isEmpty()){
+            Coordinate here = queue.poll();
+            area++;
+            farm[here.x][here.y].visited = true;
+
+            if(here.x - 1 >= XMIN && !farm[here.x - 1][here.y].visited && farm[here.x - 1][here.y].isFertile){
+                queue.add(new Coordinate(here.x - 1, here.y));
+            }
+            if(here.x + 1 < XMAX && !farm[here.x + 1][here.y].visited && farm[here.x + 1][here.y].isFertile){
+                queue.add(new Coordinate(here.x + 1, here.y));
+            }
+            if(here.y - 1 >= YMIN && !farm[here.x][here.y - 1].visited && farm[here.x][here.y - 1].isFertile){
+                queue.add(new Coordinate(here.x, here.y - 1));
+            }
+            if(here.y + 1 < YMAX && !farm[here.x][here.y + 1].visited && farm[here.x][here.y + 1].isFertile){
+                queue.add(new Coordinate(here.x, here.y + 1));
+            }
+        }
+
+        return area;
     }
 
     public static BoundingBox[] getPlots(Scanner in, PrintStream out){
@@ -74,10 +106,10 @@ public class Main {
     public static boolean validPlot(int minX, int minY, int maxX, int maxY){
         boolean result;
 
-        result = minX >= XMIN && minX <= XMAX;
-        if(result) result = maxX >= XMIN && maxX <= XMAX;
-        if(result) result = minY >= YMIN && minY <= YMAX;
-        if(result) result = maxY >= YMIN && maxY <= YMAX;
+        result = minX >= XMIN && minX < XMAX;
+        if(result) result = maxX >= XMIN && maxX < XMAX;
+        if(result) result = minY >= YMIN && minY < YMAX;
+        if(result) result = maxY >= YMIN && maxY < YMAX;
 
         if(result) result = minX < maxX && minY < maxY;
 
@@ -97,6 +129,8 @@ public class Main {
             for(int i = plot.lowerLeft.x; i <= plot.upperRight.x; i++){
                 for(int j = plot.lowerLeft.y; j <= plot.upperRight.y; j++){
                     farm[i][j].isFertile = false;
+                    farm[i][j].visited = true;
+
                 }
             }
         }
