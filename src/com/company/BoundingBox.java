@@ -10,8 +10,8 @@ public class BoundingBox {
         this.upperRight = new Coordinate(Integer.parseInt(vals[2]), Integer.parseInt(vals[3]));
     }
 
-    public BoundingBox(Coordinate lowerLeft, Coordinate upperRight){
-        this.lowerLeft = lowerLeft;
-        this.upperRight = upperRight;
+    public BoundingBox(int minX, int minY, int maxX, int maxY){
+        this.lowerLeft = new Coordinate(minX, minY);
+        this.upperRight = new Coordinate(maxX, maxY);
     }
 }
