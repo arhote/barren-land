@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final boolean BARREN = false;
-    public static final boolean FERTILE = true;
     public static final int XMIN = 0;
     public static final int YMIN = 0;
     public static final int XMAX = 400;
@@ -23,14 +21,14 @@ public class Main {
 
 
     public static void main(String[] args) {
-        boolean[][] farm;
+        Plot[][] farm;
 
         Scanner in = new Scanner(System.in);
         PrintStream out = System.out;
 
-
-
         farm = prepFarm(getPlots(in, out));
+
+
 
     }
 
@@ -86,19 +84,19 @@ public class Main {
         return result;
     }
 
-    public static boolean[][] prepFarm(BoundingBox[] barrenLandPlots){
-        boolean[][] farm = new boolean[XMAX][YMAX];
+    public static Plot[][] prepFarm(BoundingBox[] barrenLandPlots){
+        Plot[][] farm = new Plot[XMAX][YMAX];
 
         for(int i = XMIN; i < XMAX; i++){
             for(int j = YMIN; j < YMAX; j++){
-                farm[i][j] = FERTILE;
+                farm[i][j] = new Plot();
             }
         }
 
         for(BoundingBox plot : barrenLandPlots) {
             for(int i = plot.lowerLeft.x; i <= plot.upperRight.x; i++){
                 for(int j = plot.lowerLeft.y; j <= plot.upperRight.y; j++){
-                    farm[i][j] = BARREN;
+                    farm[i][j].isFertile = false;
                 }
             }
         }
