@@ -1,0 +1,3 @@
+Please enter a barren land rectangle: (-1 to stop)
+Please enter a barren land rectangle: (-1 to stop)
+116800 116800 

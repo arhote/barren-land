@@ -30,3 +30,4 @@ After you've created the file instead run the following command:
 java Main < inputFileName
 ```
 The result can be sent to an output file by appending `> outputFileName` to the above command.
+**Note:** The results file will still contain the prompts to input barren land segments, these lines can be ignored.

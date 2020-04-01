@@ -1,0 +1,6 @@
+Please enter a barren land rectangle: (-1 to stop)
+Please enter a barren land rectangle: (-1 to stop)
+Please enter a barren land rectangle: (-1 to stop)
+Please enter a barren land rectangle: (-1 to stop)
+Please enter a barren land rectangle: (-1 to stop)
+22816 192608 
