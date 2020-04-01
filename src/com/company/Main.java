@@ -55,15 +55,19 @@ public class Main {
 
             if(here.x - 1 >= XMIN && !visited[here.x - 1][here.y] && isFertile[here.x - 1][here.y]){
                 queue.add(new Coordinate(here.x - 1, here.y));
+                visited[here.x - 1][here.y] = true;
             }
             if(here.x + 1 < XMAX && !visited[here.x + 1][here.y] && isFertile[here.x + 1][here.y]){
                 queue.add(new Coordinate(here.x + 1, here.y));
+                visited[here.x + 1][here.y] = true;
             }
             if(here.y - 1 >= YMIN && !visited[here.x][here.y - 1] && isFertile[here.x][here.y - 1]){
                 queue.add(new Coordinate(here.x, here.y - 1));
+                visited[here.x][here.y - 1] = true;
             }
             if(here.y + 1 < YMAX && !visited[here.x][here.y + 1] && isFertile[here.x][here.y + 1]){
                 queue.add(new Coordinate(here.x, here.y + 1));
+                visited[here.x][here.y + 1] = true;
             }
         }
 
