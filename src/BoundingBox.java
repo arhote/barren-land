@@ -1,5 +1,3 @@
-package com.company;
-
 public class BoundingBox {
     Coordinate lowerLeft;
     Coordinate upperRight;
