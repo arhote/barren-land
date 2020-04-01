@@ -16,7 +16,7 @@ The following command will run the program in the terminal and prompt for user i
 java Main
 ```
 If you want to test the program with a file rather than manually entering the barren land squares then create a file of 
-the following format in the same directory you run the above command.
+the following format in the same directory you run the above command. (Samples can be found in the test directory.)
 ```
 xmin1 ymin1 xmax1 ymax1
 xmin2 ymin2 xmax2 ymax2
