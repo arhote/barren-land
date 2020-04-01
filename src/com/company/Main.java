@@ -1,7 +1,5 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -14,18 +12,19 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Plot[][] farm;
+        boolean[][] isFertile;
+        boolean[][] visited = new boolean[XMAX][YMAX];
 
         Scanner in = new Scanner(System.in);
         PrintStream out = System.out;
 
-        farm = prepFarm(getPlots(in, out));
+        isFertile = prepFarm(getPlots(in, out), visited);
         ArrayList<Integer> plotSizes = new ArrayList<>();
 
         for(int i = XMIN; i < XMAX; i++){
             for(int j = YMIN; j < YMAX; j++){
-                if(!farm[i][j].visited && farm[i][j].isFertile){
-                    plotSizes.add(getFertileArea(farm, new Coordinate(i,j)));
+                if(!visited[i][j] && isFertile[i][j]){
+                    plotSizes.add(getFertileArea(isFertile, visited, new Coordinate(i,j)));
                 }
             }
         }
@@ -44,7 +43,7 @@ public class Main {
         }
     }
 
-    public static int getFertileArea(Plot[][] farm, Coordinate startPoint){
+    public static int getFertileArea(boolean[][] isFertile, boolean[][] visited, Coordinate startPoint){
         int area = 0;
         Queue<Coordinate> queue = new LinkedList<>();
         queue.add(startPoint);
@@ -52,18 +51,18 @@ public class Main {
         while(!queue.isEmpty()){
             Coordinate here = queue.poll();
             area++;
-            farm[here.x][here.y].visited = true;
+            visited[here.x][here.y] = true;
 
-            if(here.x - 1 >= XMIN && !farm[here.x - 1][here.y].visited && farm[here.x - 1][here.y].isFertile){
+            if(here.x - 1 >= XMIN && !visited[here.x - 1][here.y] && isFertile[here.x - 1][here.y]){
                 queue.add(new Coordinate(here.x - 1, here.y));
             }
-            if(here.x + 1 < XMAX && !farm[here.x + 1][here.y].visited && farm[here.x + 1][here.y].isFertile){
+            if(here.x + 1 < XMAX && !visited[here.x + 1][here.y] && isFertile[here.x + 1][here.y]){
                 queue.add(new Coordinate(here.x + 1, here.y));
             }
-            if(here.y - 1 >= YMIN && !farm[here.x][here.y - 1].visited && farm[here.x][here.y - 1].isFertile){
+            if(here.y - 1 >= YMIN && !visited[here.x][here.y - 1] && isFertile[here.x][here.y - 1]){
                 queue.add(new Coordinate(here.x, here.y - 1));
             }
-            if(here.y + 1 < YMAX && !farm[here.x][here.y + 1].visited && farm[here.x][here.y + 1].isFertile){
+            if(here.y + 1 < YMAX && !visited[here.x][here.y + 1] && isFertile[here.x][here.y + 1]){
                 queue.add(new Coordinate(here.x, here.y + 1));
             }
         }
@@ -107,7 +106,7 @@ public class Main {
 
         }
 
-        return (BoundingBox[]) plots.toArray();
+        return plots.toArray(new BoundingBox[0]);
     }
 
     public static boolean validPlot(int minX, int minY, int maxX, int maxY){
@@ -123,26 +122,26 @@ public class Main {
         return result;
     }
 
-    public static Plot[][] prepFarm(BoundingBox[] barrenLandPlots){
-        Plot[][] farm = new Plot[XMAX][YMAX];
+    public static boolean[][] prepFarm(BoundingBox[] barrenLandPlots, boolean[][] visited){
+        boolean[][] isFertile = new boolean[XMAX][YMAX];
 
         for(int i = XMIN; i < XMAX; i++){
             for(int j = YMIN; j < YMAX; j++){
-                farm[i][j] = new Plot();
+                isFertile[i][j] = true;
             }
         }
 
         for(BoundingBox plot : barrenLandPlots) {
             for(int i = plot.lowerLeft.x; i <= plot.upperRight.x; i++){
                 for(int j = plot.lowerLeft.y; j <= plot.upperRight.y; j++){
-                    farm[i][j].isFertile = false;
-                    farm[i][j].visited = true;
+                    isFertile[i][j] = false;
+                    visited[i][j] = true;
 
                 }
             }
         }
 
-        return farm;
+        return isFertile;
     }
 }
 
