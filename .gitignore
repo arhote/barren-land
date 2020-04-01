@@ -1,2 +1,6 @@
 /.idea/
+/out/
+/test/*.java
+/test/*.class
+/test/sources.txt
 /Barren Land.iml
