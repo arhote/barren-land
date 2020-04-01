@@ -1,6 +1,6 @@
 Barren Land Analysis
 =====================
-##Building the application
+## Building the application
 Use the following commands to download and build the application:
 ```
 cd <Path where you want to download the app>
@@ -10,7 +10,7 @@ javac Main.java
 ```
 **Please Note: You'll need to update your path to match Windows slashes if you're running Windows**
 
-##Running the application
+## Running the application
 The following command will run the program in the terminal and prompt for user input:
 ```
 java Main
