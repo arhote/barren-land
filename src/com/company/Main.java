@@ -34,7 +34,7 @@ public class Main {
     }
 
     public static void printAreas(PrintStream out, ArrayList<Integer> plotSizes){
-        Integer[] plots = (Integer[]) plotSizes.toArray();
+        Integer[] plots = plotSizes.toArray(new Integer[0]);
 
         Arrays.sort(plots);
 
