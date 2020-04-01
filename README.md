@@ -5,8 +5,8 @@ Use the following commands to download and build the application:
 ```
 cd <Path where you want to download the app>
 git clone https://github.com/arhote/barren-land.git
-cd barren-land/src/com/company
-javac Main.java
+cd barren-land/src
+javac @sources.txt
 ```
 **Please Note: You'll need to update your path to match Windows slashes if you're running Windows**
 
